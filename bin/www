@@ -1,0 +1,71 @@
+'use strict';
+
+// Load environment variables before anything else
+require('dotenv').config();
+
+// Import dependencies
+const http = require('http');
+const debug = require('debug')('express:server');
+const { app, bootstrap } = require('../dist/server');
+const { node_env, node_port } = require('../dist/config/appConfig');
+
+// Normalize port
+const normalizePort = (val) => {
+  const port = parseInt(val, 10);
+  if (isNaN(port)) return val;
+  if (port >= 0) return port;
+  return false;
+};
+
+// Event listener for HTTP server "error" event
+const onError = (error) => {
+  if (error.syscall !== 'listen') throw error;
+
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+};
+
+// Event listener for HTTP server "listening" event
+const onListening = () => {
+  const addr = server.address();
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+  console.log(`server is running on port ${port} in ${node_env} environment with process id ${process.pid}`);
+};
+
+// Get port from environment
+const port = normalizePort(node_port);
+
+// Set port
+app.set('port', port);
+
+// Create HTTP server
+const server = http.createServer(app);
+
+// Initialize and start the server
+(async function () {
+  try {
+    await bootstrap();
+
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+
+    return;
+  } catch (e) {
+    console.error('failed to start server:', e);
+    process.exit(1);
+  }
+})();

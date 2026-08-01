@@ -1,0 +1,50 @@
+{
+    // This is the root configuration file for the TypeScript compiler.
+    "compilerOptions": {
+        // Specifies the module system to use. "commonjs" is used for Node.js applications.
+        "module": "node16",
+        // Allows importing non-ES modules as default imports (e.g., require statements).
+        "esModuleInterop": true,
+        // Sets the ECMAScript target version for the output JavaScript. "es6" enables modern JS features.
+        "target": "es6",
+        // Disallows JavaScript files from being compiled. Set to true if you only want TypeScript files.
+        "allowJs": false,
+        // Enables strict null checks, ensuring variables cannot be assigned "null" unless explicitly allowed.
+        "strictNullChecks": true,
+        // Disallows implicit "any" type, ensuring all variables have an explicit type definition.
+        "noImplicitAny": true,
+        // Enables all strict type-checking options, improving type safety.
+        "strict": true,
+        // Disables strict function types checking to allow more flexible function assignments.
+        "strictFunctionTypes": false,
+        // Allows "this" to have an implicit "any" type, useful when working with older JavaScript code.
+        "noImplicitThis": false,
+        // Uses Node.js-style module resolution (searches in "node_modules" and follows Node's resolution algorithm).
+        "moduleResolution": "node16",
+        // Allows importing JSON files as modules.
+        "resolveJsonModule": true,
+        // Disables source maps generation, which are used for debugging TypeScript in browsers or Node.js.
+        "sourceMap": false,
+        // Specifies the output directory where compiled JavaScript files will be placed.
+        "rootDir": "./src",
+        "outDir": "dist",
+        // Specifies the base directory for module resolution and relative paths.
+        // "baseUrl": ".",
+        // Defines how module paths are resolved. Here, all modules are looked up in "node_modules".
+        // "paths": {
+        //     "*": [
+        //         "node_modules/*"
+        //     ]
+        // },
+        // Skips type checking of declaration files (*.d.ts) to speed up compilation.
+        "skipLibCheck": true,
+        // Specifies the type definitions to include; here, only Node.js built-in types are loaded.
+        "types": [
+            "node"
+        ],
+    },
+    // Specifies the files and directories to be included in compilation.
+    "include": [
+        "src/**/*" // Includes all TypeScript files inside the "src" directory and its subdirectories.
+    ]
+}
